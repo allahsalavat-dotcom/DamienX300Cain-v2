@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DamienX300Cain - Cehennem</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:linear-gradient(to bottom, #330000 0%, #000000 100%);overflow:hidden;cursor:none;font-family:'Courier New',monospace;color:#a00}
+        .hell-bg{position:fixed;inset:0;opacity:0.4;background-image:radial-gradient(circle at 30% 70%, rgba(255,50,0,0.3) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(150,0,0,0.2) 0%, transparent 50%);animation:flicker 3s ease-in-out infinite}
+        @keyframes flicker{0%,100%{opacity:0.4}50%{opacity:0.6}}
+        .smoke{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(transparent, rgba(100,0,0,0.1));animation:smokeRise 25s linear infinite}
+        @keyframes smokeRise{0%{transform:translateY(100vh)}100%{transform:translateY(-100vh)}}
+        .flame{position:absolute;bottom:0;background:linear-gradient(#f00, #a00, transparent);border-radius:50% 50% 50% 0;height:100px;opacity:0.5;animation:flameDance 4s ease-in-out infinite}
+        .flame:nth-child(1){left:20%;width:80px;animation-delay:0s}.flame:nth-child(2){left:40%;width:120px;animation-delay:1s}.flame:nth-child(3){left:60%;width:100px;animation-delay:2s}.flame:nth-child(4){left:80%;width:90px;animation-delay:3s}
+        @keyframes flameDance{0%,100%{transform:scale(1) skew(0deg);opacity:0.5}50%{transform:scale(1.5) skew(5deg);opacity:0.8}}
+        #main{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:150px;letter-spacing:25px;color:#f00;font-weight:900;text-transform:uppercase;opacity:0;animation:erupt 20s ease-out forwards}
+        @keyframes erupt{0%{opacity:0;filter:blur(30px);transform:translate(-50%,-50%) scale(0.3)}50%{opacity:0.6;filter:blur(10px);transform:translate(-50%,-50%) scale(1.2)}100%{opacity:1;filter:blur(0);transform:translate(-50%,-50%) scale(1)}}
+        .creators{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-size:28px;color:#800;letter-spacing:10px;opacity:0;animation:creep 35s infinite}
+        @keyframes creep{0%,55%{opacity:0;transform:translateX(-50%) translateY(30px)}60%{opacity:1;transform:translateX(-50%) translateY(0)}98%{opacity:1}100%{opacity:0}}
+        #scare{position:fixed;inset:0;background:radial-gradient(circle, #ff0000 0%, #660000 70%, #000 100%);display:flex;align-items:center;justify-content:center;font-size:280px;color:#fff;text-shadow:0 0 120px #f00;z-index:999;display:none;animation:hellBurst 1.5s}
+        @keyframes hellBurst{0%{transform:scale(0);opacity:0;filter:blur(15px)}40%{transform:scale(2);opacity:1;filter:blur(0)}100%{transform:scale(1.3);opacity:0;filter:blur(8px)}}
+    </style>
+</head>
+<body>
+    <div class="hell-bg"></div>
+    <div class="smoke"></div>
+    <div class="flame"></div><div class="flame"></div><div class="flame"></div><div class="flame"></div>
+
+    <div id="main">DAMIENX300CAIN</div>
+    <div class="creators">yaratıcılar: DamienX300Cain</div>
+    <div id="scare">CEHENNEM PATLADI - DAMIENX300CAIN</div>
+
+    <audio id="song" loop preload="auto">
+        <source src="cain-sarkisi.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const s = document.getElementById('song');
+        let started = false;
+        document.addEventListener('click', function() {
+            if (started) return;
+            started = true;
+            s.play().catch(e => console.log('Ses:', e));
+            s.volume = 0.4;
+            const rise = setInterval(() => {
+                s.volume = Math.min(s.volume + 0.015, 0.85);
+                if (s.volume >= 0.85) clearInterval(rise);
+            }, 400);
+        }, {once: true});
+
+        setTimeout(function() {
+            if (!started) return;
+            const scare = document.getElementById('scare');
+            scare.style.display = 'flex';
+            s.volume = 1;
+            setTimeout(() => {
+                scare.style.display = 'none';
+                s.volume = 0.85;
+            }, 1600);
+        }, 12000);
+    </script>
+</body>
+</html>
